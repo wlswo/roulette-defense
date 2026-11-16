@@ -1,0 +1,60 @@
+---
+// 모든 페이지 공통 틀: 상단(로고, 메뉴), 본문, 하단(문의, 약관 링크)
+import { site, href, asset } from '../site';
+import '../styles/site.css';
+
+interface Props { title: string; description: string; page: '' | 'privacy' | 'terms' | 'support'; }
+const { title, description, page } = Astro.props;
+const canonical = new URL(href(page), Astro.site).toString();
+const ogImage = new URL(asset('og.png'), Astro.site).toString();
+---
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#2b1608" />
+    <link rel="icon" type="image/png" href={asset('favicon.png')} />
+    <link rel="apple-touch-icon" href={asset('icon.png')} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+  </head>
+  <body class={page === '' ? 'home' : 'doc-page'}>
+    <header class="top">
+      <div class="top-in">
+        <a class="brand" href={href('')}>
+          <img src={asset('icon.png')} alt="" width="36" height="36" />
+          <span>{site.name}</span>
+        </a>
+        <nav>
+          <a href={href('support')} class:list={[{ on: page === 'support' }]}>문의</a>
+          <a href={href('privacy')} class:list={[{ on: page === 'privacy' }]}>개인정보 처리방침</a>
+          <a href={href('terms')} class:list={[{ on: page === 'terms' }]}>이용약관</a>
+        </nav>
+      </div>
+    </header>
+    <main><slot /></main>
+    <footer class="bottom">
+      <div class="bottom-in">
+        <p>{site.operator}  {site.name}</p>
+        <div class="links">
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+          <a href={href('privacy')}>개인정보 처리방침</a>
+          <a href={href('terms')}>이용약관</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

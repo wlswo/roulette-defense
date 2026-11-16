@@ -1,0 +1,52 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site, href, asset } from '../site';
+
+const features = [
+  { icon: 'sym_seven', title: '당기고 놓으면 소환', text: '룰렛을 끝까지 당겼다가 놓으세요. 같은 그림 세 개면 잭팟, 777이면 전설 유닛이 나와요.' },
+  { icon: 'icon_merge', title: '세 명 모으면 합성', text: '같은 유닛 셋을 모으면 한 단계 높은 등급으로. 도감 조합으로 특별한 유닛도 만들 수 있어요.' },
+  { icon: 'icon_boss', title: '10스테이지마다 보스', text: '제한 시간 안에 보스를 쓰러뜨리세요. 공중, 고속, 분열, 마법 면역 웨이브도 몰려와요.' },
+  { icon: 'icon_upgrade', title: '판이 끝나도 성장', text: '전투에서 얻은 훈장으로 계열과 공용 능력을 영구히 강화해서 더 어려운 지역에 도전하세요.' },
+  { icon: 'icon_infinity', title: '네 지역, 무한 모드', text: '초록 숲부터 불꽃 화산까지 노말, 하드, 지옥 난이도. 다 깼다면 무한 모드에서 기록에 도전하세요.' },
+  { icon: 'icon_mission', title: '매일 받는 보상', text: '출석 보상과 일일 임무로 매일 조금씩 강해져요. 결제 없이도 모든 지역을 깰 수 있어요.' },
+];
+const shots = ['lobby', 'battle', 'merge', 'codex', 'upgrade', 'shop'];
+---
+<Layout title={`${site.name}, 당기는 손맛의 랜덤 디펜스`} description="룰렛을 당겨 유닛을 소환하고, 합성하고, 몰려오는 몬스터를 막아내는 캐주얼 디펜스 게임." page="">
+  <section class="hero">
+    <img class="logo" src={asset('logo.png')} alt={site.name} />
+    <p class="tagline">당기고, 놓고, 막아라!</p>
+    <p class="sub">룰렛을 돌려 유닛을 소환하고, 셋을 모아 합성해서 몰려오는 몬스터를 막아내는 캐주얼 디펜스 게임</p>
+    <div class="badges">
+      <span class="badge soon"><span><small>곧 출시</small>App Store</span></span>
+      <span class="badge soon"><span><small>곧 출시</small>Google Play</span></span>
+    </div>
+    <p class="note">iPhone, Android 출시 준비 중이에요</p>
+  </section>
+
+  <section class="section">
+    <h2>이런 게임이에요</h2>
+    <p class="lead">한 판은 짧게, 성장은 길게. 운이 좋으면 대박, 운이 없어도 전략으로 버텨요.</p>
+    <div class="features">
+      {features.map((f) => (
+        <div class="card">
+          <img src={asset(`icons/${f.icon}.png`)} alt="" loading="lazy" />
+          <h3>{f.title}</h3>
+          <p>{f.text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>게임 화면</h2>
+    <div class="shots">
+      {shots.map((s) => <img src={asset(`shots/${s}.png`)} alt="" loading="lazy" width="240" />)}
+    </div>
+  </section>
+
+  <section class="cta">
+    <p>궁금한 점이 있으면 언제든 물어보세요</p>
+    <a class="badge" href={href('support')}><span>문의하기</span></a>
+  </section>
+</Layout>
