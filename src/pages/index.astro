@@ -2,31 +2,56 @@
 import Layout from '../layouts/Layout.astro';
 import { site, href, asset } from '../site';
 
+// 게임 소개 (2026-11-22 게임 기준). 게임 규칙이 바뀌면 여기 문구도 같이 고친다
 const features = [
-  { icon: 'sym_seven', title: '당기고 놓으면 소환', text: '룰렛을 끝까지 당겼다가 놓으세요. 같은 그림 세 개면 잭팟, 777이면 전설 유닛이 나와요.' },
-  { icon: 'icon_merge', title: '세 명 모으면 합성', text: '같은 유닛 셋을 모으면 한 단계 높은 등급으로. 도감 조합으로 특별한 유닛도 만들 수 있어요.' },
-  { icon: 'icon_boss', title: '10스테이지마다 보스', text: '제한 시간 안에 보스를 쓰러뜨리세요. 공중, 고속, 분열, 마법 면역 웨이브도 몰려와요.' },
-  { icon: 'icon_upgrade', title: '판이 끝나도 성장', text: '전투에서 얻은 훈장으로 계열과 공용 능력을 영구히 강화해서 더 어려운 지역에 도전하세요.' },
-  { icon: 'icon_infinity', title: '네 지역, 무한 모드', text: '초록 숲부터 불꽃 화산까지 노말, 하드, 지옥 난이도. 다 깼다면 무한 모드에서 기록에 도전하세요.' },
-  { icon: 'icon_mission', title: '매일 받는 보상', text: '출석 보상과 일일 임무로 매일 조금씩 강해져요. 결제 없이도 모든 지역을 깰 수 있어요.' },
+  { icon: 'sym_seven', title: '소환하고 룰렛 돌리기', text: '골드로 유닛을 소환하고, 다섯 번 소환할 때마다 룰렛 이용권을 받아요. 같은 그림 셋이 나오면 잭팟이에요.' },
+  { icon: 'icon_merge', title: '칸에서 바로 합성', text: '같은 유닛 셋이 모이면 칸이 반짝여요. 누르면 한 단계 높은 등급으로 합성돼요.' },
+  { icon: 'icon_cell_buff', title: '버프칸과 해골칸', text: '스테이지마다 자리가 바뀌는 특별한 칸이 있어요. 강한 유닛을 어디에 둘지 고민해 보세요.' },
+  { icon: 'icon_boss', title: '10스테이지마다 보스', text: '정해진 시간 안에 보스를 쓰러뜨리세요. 빠른 적, 나뉘는 적, 마법이 안 통하는 적도 몰려와요.' },
+  { icon: 'icon_upgrade', title: '판이 끝나도 성장', text: '강화권으로 영웅을 키우고 스킬북으로 스킬을 올려서 더 어려운 지역에 도전하세요.' },
+  { icon: 'icon_infinity', title: '네 지역, 무한 모드', text: '초록 숲부터 불꽃 화산까지 이지, 노말, 하드. 다 깼다면 무한 모드와 주간 랭킹에서 기록에 도전하세요.' },
 ];
-const shots = ['lobby', 'battle', 'merge', 'codex', 'upgrade', 'shop'];
+const grades = [
+  { unit: 'warrior_n', label: '일반', color: '#b9c2c9' },
+  { unit: 'archer_u', label: '고급', color: '#5ed35e' },
+  { unit: 'mage_r', label: '희귀', color: '#3b8cff' },
+  { unit: 'rogue_l', label: '전설', color: '#c05cff' },
+  { unit: 'dragon_t', label: '초월', color: '#ffc21a' },
+  { unit: 'storm_t', label: '초월', color: '#ffc21a' },
+  { unit: 'angel_t', label: '초월', color: '#ffc21a' },
+];
+const shots = [
+  { file: 'lobby', cap: '지역 고르기' },
+  { file: 'merge', cap: '소환과 합성' },
+  { file: 'roulette', cap: '룰렛' },
+  { file: 'boss', cap: '보스 등장' },
+  { file: 'legend', cap: '전설 유닛' },
+  { file: 'clear', cap: '클리어' },
+  { file: 'heroes', cap: '영웅 키우기' },
+  { file: 'gacha', cap: '뽑기' },
+];
 ---
-<Layout title={`${site.name}, 당기는 손맛의 랜덤 디펜스`} description="룰렛을 당겨 유닛을 소환하고, 합성하고, 몰려오는 몬스터를 막아내는 캐주얼 디펜스 게임." page="">
+<Layout title={`${site.name}, 소환하고 합성하는 랜덤 디펜스`} description="유닛을 소환하고, 룰렛을 돌리고, 셋을 모아 합성해서 몰려오는 몬스터를 막아내는 캐주얼 디펜스 게임." page="">
   <section class="hero">
-    <img class="logo" src={asset('logo.png')} alt={site.name} />
-    <p class="tagline">당기고, 놓고, 막아라!</p>
-    <p class="sub">룰렛을 돌려 유닛을 소환하고, 셋을 모아 합성해서 몰려오는 몬스터를 막아내는 캐주얼 디펜스 게임</p>
-    <div class="badges">
-      <span class="badge soon"><span><small>곧 출시</small>App Store</span></span>
-      <span class="badge soon"><span><small>곧 출시</small>Google Play</span></span>
+    <img class="isle i1" src={asset('art/region_snow.png')} alt="" />
+    <img class="isle i2" src={asset('art/region_portal.png')} alt="" />
+    <img class="isle i3" src={asset('art/region_forest.png')} alt="" />
+    <img class="isle i4" src={asset('art/region_lava.png')} alt="" />
+    <div class="hero-in">
+      <img class="logo" src={asset('logo.png')} alt={site.name} />
+      <p class="tagline">소환하고, 합성하고, 막아라!</p>
+      <p class="sub">유닛을 소환하고 룰렛을 돌려 더 강한 동료를 모으세요. 셋을 모아 합성하면서 몰려오는 몬스터를 막아내는 캐주얼 디펜스 게임이에요.</p>
+      <div class="badges">
+        <span class="badge"><span><small>곧 출시</small>App Store</span></span>
+        <span class="badge"><span><small>곧 출시</small>Google Play</span></span>
+      </div>
+      <p class="note">iPhone, Android 출시 준비 중이에요</p>
     </div>
-    <p class="note">iPhone, Android 출시 준비 중이에요</p>
   </section>
 
   <section class="section">
     <h2>이런 게임이에요</h2>
-    <p class="lead">한 판은 짧게, 성장은 길게. 운이 좋으면 대박, 운이 없어도 전략으로 버텨요.</p>
+    <p class="lead">한 판은 짧게, 성장은 길게. 운이 좋으면 대박, 운이 없어도 자리 잡기와 합성으로 버텨요.</p>
     <div class="features">
       {features.map((f) => (
         <div class="card">
@@ -39,14 +64,32 @@ const shots = ['lobby', 'battle', 'merge', 'codex', 'upgrade', 'shop'];
   </section>
 
   <section class="section">
+    <h2>일반부터 초월까지</h2>
+    <p class="lead">합성할수록 등급이 올라가요. 전설 유닛을 조합하면 세 초월 영웅을 만날 수 있어요.</p>
+    <div class="grades">
+      {grades.map((g) => (
+        <div class:list={['grade', { t: g.label === '초월' }]}>
+          <img src={asset(`units/${g.unit}.png`)} alt="" loading="lazy" />
+          <span style={`color:${g.color}`}>{g.label}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
     <h2>게임 화면</h2>
     <div class="shots">
-      {shots.map((s) => <img src={asset(`shots/${s}.png`)} alt="" loading="lazy" width="240" />)}
+      {shots.map((s) => (
+        <figure>
+          <img src={asset(`shots/${s.file}.png`)} alt={s.cap} loading="lazy" width="240" />
+          <figcaption>{s.cap}</figcaption>
+        </figure>
+      ))}
     </div>
   </section>
 
   <section class="cta">
     <p>궁금한 점이 있으면 언제든 물어보세요</p>
-    <a class="badge" href={href('support')}><span>문의하기</span></a>
+    <a class="badge go" href={href('support')}><span>문의하기</span></a>
   </section>
 </Layout>
