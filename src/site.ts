@@ -4,7 +4,7 @@ export const site = {
   nameEn: 'Roulette Defense',
   operator: 'Jstudio',
   email: 'roulette@wlswo.me',
-  updated: '2026년 11월 16일',          // 이용약관 시행일
+  updated: '2026년 11월 25일',          // 이용약관 시행일 (환불 회수, 주간 랭킹 보상 조건 추가)
   privacyUpdated: '2026년 11월 22일',   // 개인정보 처리방침 시행일 (닉네임과 랭킹 추가)
 };
 
