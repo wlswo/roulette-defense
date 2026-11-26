@@ -2,45 +2,36 @@
 import Layout from '../layouts/Layout.astro';
 import { site, href, asset } from '../site';
 
-// 게임 소개 (2026-11-22 게임 기준). 게임 규칙이 바뀌면 여기 문구도 같이 고친다
+// 게임 소개 (2026-11-26 슬롯 디펜스 기준). 게임 규칙이 바뀌면 여기 문구도 같이 고친다.
+//   그림은 우리가 만든 것만 쓴다 (심볼, 카지노 섬, 몬스터, 로고). 구매한 UI 키트가 들어간 그림은 이 공개 저장소에 넣지 않는다
 const features = [
-  { icon: 'sym_seven', title: '소환하고 룰렛 돌리기', text: '골드로 유닛을 소환하고, 다섯 번 소환할 때마다 룰렛 이용권을 받아요. 같은 그림 셋이 나오면 잭팟이에요.' },
-  { icon: 'icon_merge', title: '칸에서 바로 합성', text: '같은 유닛 셋이 모이면 칸이 반짝여요. 누르면 한 단계 높은 등급으로 합성돼요.' },
-  { icon: 'icon_cell_buff', title: '버프칸과 해골칸', text: '스테이지마다 자리가 바뀌는 특별한 칸이 있어요. 강한 유닛을 어디에 둘지 고민해 보세요.' },
-  { icon: 'icon_boss', title: '10스테이지마다 보스', text: '정해진 시간 안에 보스를 쓰러뜨리세요. 빠른 적, 나뉘는 적, 마법이 안 통하는 적도 몰려와요.' },
-  { icon: 'icon_upgrade', title: '판이 끝나도 성장', text: '강화권으로 영웅을 키우고 스킬북으로 스킬을 올려서 더 어려운 지역에 도전하세요.' },
-  { icon: 'icon_infinity', title: '네 지역, 무한 모드', text: '초록 숲부터 불꽃 화산까지 이지, 노말, 하드. 다 깼다면 무한 모드와 주간 랭킹에서 기록에 도전하세요.' },
+  { img: 'slot/slot_seven.png', title: '30칸이 한꺼번에 돈다', text: '판의 모든 칸이 슬롯머신처럼 돌고, 멈춘 자리의 심볼이 몬스터를 막아요.' },
+  { img: 'slot/slot_dice.png', title: '같은 심볼 세 개면 한 줄', text: '가로, 세로, 대각선으로 같은 심볼이 이어지면 강해져요. 가운데 초록 칸은 두 배예요.' },
+  { img: 'slot/slot_bell.png', title: '잠그고 다시 돌리기', text: '좋은 칸은 잠가 두고 나머지만 다시 돌려요. 칸 하나만 노려서 돌릴 수도 있어요.' },
+  { img: 'slot/boss_c3_0.png', title: '카지노 네 곳과 보스', text: '초록 펠트 살롱부터 마왕의 하이롤러 룸까지. 카지노마다 규칙과 보스가 달라요.' },
+  { img: 'slot/slot_wheel.png', title: '판이 끝나도 성장', text: '골드로 심볼을 강화하고 훈장으로 카지노 특전을 올려요. 새 심볼도 하나씩 열려요.' },
+  { img: 'art/region_jackpot.png', title: '끝없는 잭팟 탑', text: '네 카지노를 깼다면 끝없이 올라가는 탑과 주간 랭킹에서 기록에 도전하세요.' },
 ];
-const grades = [
-  { unit: 'warrior_n', label: '일반', color: '#b9c2c9' },
-  { unit: 'archer_u', label: '고급', color: '#5ed35e' },
-  { unit: 'mage_r', label: '희귀', color: '#3b8cff' },
-  { unit: 'rogue_l', label: '전설', color: '#c05cff' },
-  { unit: 'dragon_t', label: '초월', color: '#ffc21a' },
-  { unit: 'storm_t', label: '초월', color: '#ffc21a' },
-  { unit: 'angel_t', label: '초월', color: '#ffc21a' },
-];
-const shots = [
-  { file: 'lobby', cap: '지역 고르기' },
-  { file: 'merge', cap: '소환과 합성' },
-  { file: 'roulette', cap: '룰렛' },
-  { file: 'boss', cap: '보스 등장' },
-  { file: 'legend', cap: '전설 유닛' },
-  { file: 'clear', cap: '클리어' },
-  { file: 'heroes', cap: '영웅 키우기' },
-  { file: 'gacha', cap: '뽑기' },
+const symbols = [
+  { img: 'slot_dice', label: '주사위 기사' },
+  { img: 'slot_card', label: '카드 마술사' },
+  { img: 'slot_chip', label: '칩 폭탄' },
+  { img: 'slot_ice', label: '얼음 큐브' },
+  { img: 'slot_king', label: '킹 카드' },
+  { img: 'slot_slotm', label: '슬롯머신' },
+  { img: 'slot_wheel', label: '룰렛 휠' },
 ];
 ---
-<Layout title={`${site.name}, 소환하고 합성하는 랜덤 디펜스`} description="유닛을 소환하고, 룰렛을 돌리고, 셋을 모아 합성해서 몰려오는 몬스터를 막아내는 캐주얼 디펜스 게임." page="">
+<Layout title={`${site.name} - 슬롯 디펜스`} description="판의 30칸이 슬롯머신처럼 돌고, 멈춘 심볼이 몰려오는 몬스터를 막아내는 캐주얼 디펜스 게임." page="">
   <section class="hero">
-    <img class="isle i1" src={asset('art/region_snow.png')} alt="" />
-    <img class="isle i2" src={asset('art/region_portal.png')} alt="" />
-    <img class="isle i3" src={asset('art/region_forest.png')} alt="" />
-    <img class="isle i4" src={asset('art/region_lava.png')} alt="" />
+    <img class="isle i1" src={asset('art/region_neon.png')} alt="" />
+    <img class="isle i2" src={asset('art/region_jackpot.png')} alt="" />
+    <img class="isle i3" src={asset('art/region_felt.png')} alt="" />
+    <img class="isle i4" src={asset('art/region_demon.png')} alt="" />
     <div class="hero-in">
       <img class="logo" src={asset('logo.png')} alt={site.name} />
-      <p class="tagline">소환하고, 합성하고, 막아라!</p>
-      <p class="sub">유닛을 소환하고 룰렛을 돌려 더 강한 동료를 모으세요. 셋을 모아 합성하면서 몰려오는 몬스터를 막아내는 캐주얼 디펜스 게임이에요.</p>
+      <p class="tagline">돌리고, 맞추고, 막아라!</p>
+      <p class="sub">판의 30칸이 슬롯머신처럼 돌아요. 같은 심볼을 한 줄로 맞추고, 좋은 칸은 잠그고, 몰려오는 몬스터를 막아내는 캐주얼 디펜스 게임이에요.</p>
       <div class="badges">
         <span class="badge"><span><small>곧 출시</small>App Store</span></span>
         <span class="badge"><span><small>곧 출시</small>Google Play</span></span>
@@ -51,11 +42,11 @@ const shots = [
 
   <section class="section">
     <h2>이런 게임이에요</h2>
-    <p class="lead">한 판은 짧게, 성장은 길게. 운이 좋으면 대박, 운이 없어도 자리 잡기와 합성으로 버텨요.</p>
+    <p class="lead">한 판은 짧게, 성장은 길게. 운이 좋으면 잭팟, 운이 없어도 잠그기와 다시 돌리기로 버텨요.</p>
     <div class="features">
       {features.map((f) => (
         <div class="card">
-          <img src={asset(`icons/${f.icon}.png`)} alt="" loading="lazy" />
+          <img src={asset(f.img)} alt="" loading="lazy" />
           <h3>{f.title}</h3>
           <p>{f.text}</p>
         </div>
@@ -64,26 +55,14 @@ const shots = [
   </section>
 
   <section class="section">
-    <h2>일반부터 초월까지</h2>
-    <p class="lead">합성할수록 등급이 올라가요. 전설 유닛을 조합하면 세 초월 영웅을 만날 수 있어요.</p>
+    <h2>몬스터를 막는 심볼</h2>
+    <p class="lead">주사위, 카드, 칩, 얼음, 룰렛 휠까지. 카지노를 깰 때마다 새 심볼이 열려요.</p>
     <div class="grades">
-      {grades.map((g) => (
-        <div class:list={['grade', { t: g.label === '초월' }]}>
-          <img src={asset(`units/${g.unit}.png`)} alt="" loading="lazy" />
-          <span style={`color:${g.color}`}>{g.label}</span>
+      {symbols.map((g) => (
+        <div class="grade">
+          <img src={asset(`slot/${g.img}.png`)} alt="" loading="lazy" />
+          <span>{g.label}</span>
         </div>
-      ))}
-    </div>
-  </section>
-
-  <section class="section">
-    <h2>게임 화면</h2>
-    <div class="shots">
-      {shots.map((s) => (
-        <figure>
-          <img src={asset(`shots/${s.file}.png`)} alt={s.cap} loading="lazy" width="240" />
-          <figcaption>{s.cap}</figcaption>
-        </figure>
       ))}
     </div>
   </section>
